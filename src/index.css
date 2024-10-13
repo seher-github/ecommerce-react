@@ -1,13 +1,400 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+/* First Navbar (Transparent Background) */
+.bg-transparent {
+  background-color: transparent !important;
+  z-index: 1000;
+}
+.bg-transparent .navbar-brand {
+  font-weight: 900;
+}
+/* Second Navbar (Shorter width with white background) */
+.second-navbar {
+  position: relative;  /* Ensure it's positioned correctly */
+  z-index: 1000;  /* Bring it in front of other elements */
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+/* Adjust Nav Link Padding */
+.second-navbar .navbar-nav .nav-link {
+  padding-left: 20px;
+  padding-right: 20px;
+  transition: all 0.5s ease-in-out;
+  font-weight: 700;
+  cursor: pointer;
+}
+.second-navbar .navbar-nav .nav-link:hover:active {
+  color: blueviolet;
+}
+
+/* For responsive layout */
+@media (max-width: 768px) {
+  .second-navbar {
+    width: 100%; /* Full width on mobile */
+  }
+}
+/* Hero section with full viewport height */
+.hero-section {
+  margin-top: -10%;
+  height: fit-content;
+  display: flex;
+  background-color: blueviolet;
+}
+
+/* Image styling */
+.hero-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-image {
+  margin-top: 0%; /* Ensures image doesn't exceed column width */
+  object-fit: cover;
+  z-index: 2; /* Ensures image covers its container */
+}
+
+/* Text styling */
+.hero-text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.hero-image-container::before {
+  content: "WIREE\A LESSS\A HEADD \A PHONE"; /* \A is used for line breaks */
+  white-space: pre; /* Text you want to display */
+  position: absolute;
+  text-align: left;
+  top: 60%;
+  left: 28%;
+  line-height: 120px;
+  letter-spacing: 1px;
+  transform: translate(-50%, -50%); /* Center the text */
+  font-size: 10rem; /* Large font size */
+  font-weight: bold;
+  color: rgba(
+    255,
+    255,
+    255,
+    0.6
+  ); /* Faded color so it doesn't overpower the image */
+  z-index: 1; /* Positioned behind the image */
+  pointer-events: none; /* Prevent interaction with the text */
+}
+.hero-text-container {
+  padding: 100px 50px;
+  align-items: start;
+  align-content: flex-start;
+}
+.hero-text-container h1 {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  color: white;
+  text-align: left;
+  font-weight: 900;
+}
+
+.hero-text-container p {
+  font-size: 2.5rem;
+  color: white;
+  text-align: left;
+}
+.hero-text-container button {
+  text-align: left;
+  background-color: transparent;
+  border: 2px solid white;
+  padding: 10px 30px;
+  transition: all 0.5s ease-in-out;
+}
+.hero-text-container button:hover {
+  background: white;
+  border: 2px solid blueviolet;
+  color: blueviolet;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-section {
+    flex-direction: column;
+  }
+
+  .hero-image-container {
+    height: 50vh;
+  }
+
+  .hero-text-container {
+    text-align: center;
+  }
+}
+.services {
+  text-align: left;
+}
+.services .col {
+  text-align: left;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+.services .col .cr h5 {
+  font-size: 20px;
+  color: blueviolet;
+}
+.product-img {
+  height: 250px; /* Set the desired height */
+  object-fit: cover; /* Ensures the image maintains its aspect ratio and fills the container */
+}
+.reviews-section .slick-center .review-card {
+  transform: scale(1.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.review-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.review-card {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1; /* Ensure that content stays on top */
+}
+
+.review-card::before {
+  content: '';
+  background: url('../src/Assets/headphones.png') no-repeat center;
+  top: -60px;
+  left: -160px;
+  right: 0;
+  bottom: 0;
+  background-size: 100px 100px; /* Make the image larger */
+  position: absolute;
+  opacity: 0.2; /* Increase the opacity to make it more visible */
+  z-index: -1; /* Ensure the image is behind the card content */
+  transform: rotate(-25deg); /* Tilt the image */
+}
+
+.subscription-section {
+  position: relative;
+  overflow: hidden;
+ 
+}
+.subscription-text-container{
+  text-align: left;
+}
+.subscription-image-container::before {
+  content: 'HEAD \APHONE';
+  position: absolute;
+  text-align: left;
+  font-size: 10rem;
+  color: rgb(143, 45, 235,0.6);
+  font-weight: bold;
+  top: 50%;
+  left: -10px;
+  transform: translateY(-50%);
+  z-index: 0; /* Behind the text */
+}
+
+.subscription-image-container img {
+  z-index: 1; /* Image stays in front of the background text */
+}
+
+form {
+  z-index: 2; /* Ensure form and text appear above the background text */
+}
+
+.small-hero {
+  position: relative;
+  height: 70vh; /* Small height */
+  margin-top: -10%; /* To make the header visible */
+  background-image: linear-gradient(
+      rgba(138, 43, 226, 0.7), /* Blue-violet gradient */
+      rgba(138, 43, 226, 0.3)
+    ), 
+    url('../src/Assets/headphone-bg2.jpg'); /* Background image */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+}
+
+.breadcrumb-container {
+  position: absolute;
+  color: white;
+  font-size: 14px;
+}
+
+.breadcrumb-container a {
+  color: white;
+  text-decoration: none;
+}
+
+.breadcrumb-container span {
+  color: white;
+}
+.hero-content{
+  margin-top: 150px;
+}
+.hero-content h6 {
+  font-size: 16px;
+}
+
+.hero-content h1 {
+  font-size: 38px;
+  font-weight: 900;
+}
+.about-section {
+  padding: 60px 0;
+}
+
+.section-heading {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 20px;
+  color: blueviolet;
+  text-align: left;
+}
+
+.section-text {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.image-container {
+  padding: 0;
+}
+
+.full-width-image {
+  width: 100%; /* Ensure the image covers the full width of its column */
+  height: 100%; /* Ensure the image takes full height */
+  object-fit: cover; /* Make sure the image covers the entire area */
+}
+
+.bullet-points {
+  list-style-type: disc;
+  padding-left: 20px;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.bullet-points li {
+  margin-bottom: 10px;
+}
+
+.contact-section {
+  background-color: #f9f9f9;
+  padding: 50px 0;
+  text-align: left; /* Align text and content to the left */
+}
+
+.contact-heading {
+  color: blueviolet;
+  font-weight: bold;
+  margin-bottom: 30px;
+  font-size: 32px;
+  text-align: left; /* Ensure heading is left-aligned */
+}
+
+.contact-form .form-label {
+  color: blueviolet;
+  font-size: 20px;
+}
+
+.contact-form .form-control {
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.contact-form .custom-btn {
+  background-color: blueviolet;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  text-align: left; /* Left-align button */
+}
+
+.contact-form .custom-btn:hover {
+  background-color: #7a26cc;
+}
+
+.contact-info {
+  padding-left: 50px;
+}
+
+.address-list li {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #333;
+  text-align: left; /* Ensure address list is left-aligned */
+}
+
+.social-icons .list-inline-item {
+  margin-right: 20px;
+}
+
+.social-icons .list-inline-item a {
+  color: blueviolet;
+  transition: color 0.3s;
+}
+
+.social-icons .list-inline-item a:hover {
+  color: #7a26cc;
+}
+
+.follow-us {
+  margin-top: 40px;
+  color: blueviolet;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: left; /* Ensure follow-us section is left-aligned */
+}
+
+
+
+.footer-section {
+  background-color: blueviolet;
+  height: 100vh;
+  color: white;
+}
+
+.subscription-form form input {
+  background-color: white;
+  color: blueviolet;
+  font-weight: bold;
+  border-radius:50px ;
+}
+
+.social-icons a {
+  margin: 0 10px;
+}
+
+.text-white-50 {
+  color: rgba(255, 255, 255, 0.5) !important;
 }
