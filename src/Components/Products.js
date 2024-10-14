@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Card, Button, Badge, Form } from 'react-bootstrap';
-import { FaShoppingCart, FaHeart } from 'react-icons/fa';
+import React from 'react';
+import { Container, Row, Col, Card, Button, Badge } from 'react-bootstrap';
+import { FaShoppingCart, FaHeart, FaHeadphones } from 'react-icons/fa';
 import p1 from '../Assets/p1.jpg';
 import p2 from '../Assets/p2.jpg';
 import p3 from '../Assets/p3.jpg';
@@ -10,14 +10,8 @@ import p6 from '../Assets/p6.jpg';
 import p7 from '../Assets/p7.jpg';
 import p8 from '../Assets/p8.jpg';
 
-const Products = () => {
-  // Filter states
-  const [category, setCategory] = useState('');
-  const [priceRange, setPriceRange] = useState('');
-  const [brand, setBrand] = useState('');
-  const [rating, setRating] = useState('');
-
-  // Product data
+const Products = ({ filters = { category: 'All', priceRange: [0, 500] } }) => {
+  // Dummy product data
   const products = [
     {
       id: 1,
@@ -85,77 +79,68 @@ const Products = () => {
     },
   ];
 
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    if (name === 'category') setCategory(value);
-    if (name === 'priceRange') setPriceRange(value);
-    if (name === 'brand') setBrand(value);
-    if (name === 'rating') setRating(value);
-  };
-
-  // Filtered products based on selected filters
+  // Filter products based on selected category and price range
   const filteredProducts = products.filter((product) => {
-    let priceMatch = true;
-    if (priceRange) {
-      const [minPrice, maxPrice] = priceRange.split('-');
-      priceMatch = product.price >= parseInt(minPrice) && product.price <= parseInt(maxPrice);
-    }
-    const categoryMatch = category ? product.category === category : true;
-    return categoryMatch && priceMatch;
+    const isCategoryMatch = filters.category === 'All' || product.category === filters.category;
+    const isPriceMatch = product.price >= filters.priceRange[0] && product.price <= filters.priceRange[1];
+    return isCategoryMatch && isPriceMatch;
   });
 
   return (
     <div className="products-section py-5">
       <Container>
-        {/* Filter Options */}
-        <Row className="mb-4">
-          <Col xs={12}>
-            <h4>Filters</h4>
-            <Form className="d-flex flex-column align-items-start">
-              {/* Category Filter */}
-              <Form.Group controlId="categorySelect" className="mb-3">
-                <Form.Label>Category</Form.Label>
-                <Form.Select name="category" value={category} onChange={handleFilterChange}>
-                  <option value="">All Categories</option>
-                  <option value="Headphones">Headphones</option>
-                  <option value="Shoes">Shoes</option>
-                  <option value="Speakers">Speakers</option>
-                  <option value="Accessories">Accessories</option>
-                </Form.Select>
-              </Form.Group>
+      <div className="text-center mb-4">
+        <div className="d-flex justify-content-center align-items-center">
+          <FaHeadphones size={30} style={{ color: 'blueviolet' }} className="me-2" />
+          <h6 style={{ color: 'blueviolet' }}>Wireless Headphone Shop</h6>
+        </div>
+      </div>
 
-              {/* Price Range Filter */}
-              <Form.Group controlId="priceRangeSelect" className="mb-3">
-                <Form.Label>Price Range</Form.Label>
-                <Form.Select name="priceRange" value={priceRange} onChange={handleFilterChange}>
-                  <option value="">All Prices</option>
-                  <option value="0-50">$0 - $50</option>
-                  <option value="50-100">$50 - $100</option>
-                  <option value="100-200">$100 - $200</option>
-                  <option value="200-300">$200 - $300</option>
-                </Form.Select>
-              </Form.Group>
-            </Form>
-          </Col>
-        </Row>
+        {/* Main Heading */}
+        <h2 className="text-center mb-5" style={{ fontWeight: '900', fontSize: '40px' }}>
+          Explore Our Products
+        </h2>
 
-        {/* Product Grid */}
+        {/* Product Cards */}
         <Row>
-          {filteredProducts.map((product) => (
-            <Col xs={12} sm={6} md={4} lg={3} key={product.id} className="mb-4">
-              <Card className="h-100">
-                <Card.Img variant="top" src={product.img} alt={product.name} />
-                <Card.Body>
-                  <Card.Title>{product.name}</Card.Title>
-                  <Card.Text>{product.description}</Card.Text>
-                  <h5>${product.price}</h5>
-                  <Button variant="primary">
-                    <FaShoppingCart /> Add to Cart
-                  </Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((product) => (
+              <Col xs={12} sm={6} md={4} lg={3} key={product.id} className="mb-4">
+                <Card className="h-100">
+                  <div className="position-relative">
+                    <Card.Img variant="top" src={product.img} alt={product.name} className="product-img" />
+                    <Badge
+                      pill
+                      className="position-absolute"
+                      style={{ backgroundColor: 'blueviolet', top: '10px', right: '10px', fontSize: '14px' }}
+                    >
+                      Sale!
+                    </Badge>
+                    <div className="card-img-overlay d-flex justify-content-start">
+                      <a href="#" className="card-link text-danger like">
+                        <FaHeart />
+                      </a>
+                    </div>
+                  </div>
+                  <Card.Body>
+                    <Card.Title style={{ fontWeight: 900 }}>{product.name}</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">Style: VA33TXRJ5</Card.Subtitle>
+                    <Card.Text>{product.description}</Card.Text>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <h5 className="text-success">${product.price}</h5>
+                      <Button style={{ backgroundColor: 'blueviolet', border: 'none' }}>
+                        <FaShoppingCart /> Add to Cart
+                      </Button>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))
+          ) : (
+            <div className="text-center">
+              <h5>No products found matching the selected filters.</h5>
+            </div>
+          )}
         </Row>
       </Container>
     </div>

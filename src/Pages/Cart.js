@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
 import SmallHero from '../Components/SmallHero';
-import p1 from '../Assets/p1.jpg'; // Example product images
+import p1 from '../Assets/p1.jpg'; 
 import p2 from '../Assets/p2.jpg';
 
 const Cart = () => {
